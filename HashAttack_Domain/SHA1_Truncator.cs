@@ -37,8 +37,9 @@ namespace HashAttack_Domain
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 byte[] digest = sha1.ComputeHash(data);
 
-                Console.WriteLine($"Message: {message}");
-                Console.WriteLine($"Full SHA-1 (first 32 bits shown): {BitConverter.ToString(digest, 0, 4)}");
+                // These console calls really slow the app down. Probably don't do these.
+                //Console.WriteLine($"Message: {message}");
+                //Console.WriteLine($"Full SHA-1 (first 32 bits shown): {BitConverter.ToString(digest, 0, 4)}");
 
                 // Extract the first 32 bits from the SHA-1 digest
                 truncatedHash = 
@@ -54,7 +55,7 @@ namespace HashAttack_Domain
 
             }
 
-            Console.WriteLine($"Truncated to {bits} bits: 0x{truncatedHash:X}");
+            //Console.WriteLine($"Truncated to {bits} bits: 0x{truncatedHash:X}");
 
             return truncatedHash;
         }

@@ -52,8 +52,9 @@ namespace HashAttack_Domain
                 {
                     long iterations = collision.RunTrial(bits);
                     File.AppendAllText(csvFilePath, $"{bits},{trial},{sample},{iterations}\n");
-                    progress++;
 
+                    // Periodically display progress.
+                    progress++;
                     if (progress % 10 == 0) {
                         Console.WriteLine($"Collision Progress: {progress}/{totalTasks}");
                     }
@@ -90,9 +91,9 @@ namespace HashAttack_Domain
                 {
                     long iterations = preimage.RunTrial(bits);
                     File.AppendAllText(csvFilePath, $"{bits},{trial},{sample},{iterations}\n");
-                    
-                    progress++;
 
+                    // Periodically display progress.
+                    progress++;
                     if (progress % 10 == 0) {
                         Console.WriteLine($"Preimage Progress: {progress}/{totalTasks}");
                     }
