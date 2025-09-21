@@ -4,8 +4,10 @@ import numpy as np
 import glob
 
 # Helper: compute expected
-def expectedCollision(n): return 2**(n/2)
-def expectedPreimage(n): return 2**n
+def expectedCollision(n):
+    return 2**(n/2)
+def expectedPreimage(n):
+    return 2**n
 
 # Load multiple CSV files
 def loadCsvFiles(pattern):
@@ -18,12 +20,24 @@ def loadCsvFiles(pattern):
 
 # Plot graphs
 def plotBoxWhisker(df, attackType, expected_fn, outfname):
+    
+    if df.empty:
+        print(f"No data to plot for {attackType}")
+        return    
+    
     bit_sizes = sorted(df["BitSize"].unique())
     data = [df[df["BitSize"]==n]["NumberOfAttempts"].values for n in bit_sizes]
 
     fig, ax = plt.subplots(figsize=(10,6))
-    ax.boxplot(data, tick_labels=bit_sizes, showfliers=False)
+    ax.boxplot(data, showfliers=False)
 
+    # Set x-axis labels
+    ax.set_xticklabels(bit_sizes)
+    ax.set_title(f"{attackType} Attack: Attempts by Bit Size")
+    
+    ax.set_ylabel("Number of Attempts")
+    ax.set_xlabel("Hash Bit Size")
+    
     # Scatter all samples for distribution
     for i, n in enumerate(bit_sizes):
         y = df[df["BitSize"]==n]["NumberOfAttempts"].values
