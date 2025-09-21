@@ -7,6 +7,9 @@ This project explores the difficulty of two classic hash function attacks:
 
 The project demonstrates how the number of attempts needed for these attacks grows as the hash size increases.
 
+## Author
+Daniel Smith — COSC 583, Fall 2025
+
 ---
 
 ## Experiment Setup
@@ -20,7 +23,7 @@ The project demonstrates how the number of attempts needed for these attacks gro
   2. Each attack type has a `RunTrial` method in `ExperimentRunner.cs`.
   3. For each bit size tested, 50 samples are generated per trial.
   4. Results are written to CSV files (`collision_results_trial_*.csv`, `preimage_results_trial_*.csv`).
-  5. A Python script (`plot_results.py`) loads the CSV files and produces graphs.
+  5. A Python script (`plotHashExperiments.py`) loads the CSV files and produces graphs.
 
 ---
 
@@ -57,6 +60,7 @@ The `HashAttack` Console Project is the one needed to compile and execute.
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - Command-line terminal (PowerShell, Command Prompt on Windows; bash/zsh on Linux)
+- Python 3.x with libraries: pandas, matplotlib, numpy (for plotting)
 
 ### Project Setup and Execution Instructions
 
@@ -87,10 +91,8 @@ Build Single file - recommended
 
 ### 3. Publish the project for Linux
 
+This puts a single executable file in the immediate publish folder.
 ```bash
-
-\\This puts single executable file in the immediate publish folder.
-
 dotnet publish ".\HashAttack\HashAttack.csproj" `
   -c Release `
   -r linux-x64 `
@@ -104,19 +106,22 @@ dotnet publish ".\HashAttack\HashAttack.csproj" `
 
 ```bash
 scp ".\publish\HashAttack" dsmith78@mscs6.eecs.utk.edu:~/
-(dsmith78@mscs6.eecs.utk.edu) Password:
-HashAttack
-
 scp ".\Plotting\plotHashExperiments.py" dsmith78@mscs6.eecs.utk.edu:~/
-
 ```
 
 ### 5. Execute the program on Linux
 
+Make executable
 ```bash
 chmod +x HashAttack
 ```
 
+Execute
+```bash
+./HashAttack
+```
+
+Console output example:
 ```bash
 dsmith78:mscs6 ~> ./HashAttack
 Starting Trial 1 for Collision Attacks...
@@ -143,3 +148,4 @@ python3 -m pip install --user pandas matplotlib numpy
 python3 plotHashExperiments.py
 
 ```
+Plots are saved as `.png` files in your working directory. 
